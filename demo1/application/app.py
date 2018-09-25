@@ -7,13 +7,15 @@ import asyncio
 from aiohttp import web
 
 def index(request):
-	return web.Response(body=b'<h1>what the hell</h1>')
+	resp = web.Response(body=b'<h1>what the hell fuck</h1>')
+	resp.headers['content-type'] = 'text/html'
+	return resp
 
 async def init(loop):
 	app = web.Application(loop=loop)
 	app.router.add_route('GET', '/', index)
-	server = await loop.create_server(app.make_handler(), '127.0.0.1', 8000)
-	logging.info('server started at http://127.0.0.1:8000')
+	server = await loop.create_server(app.make_handler(), '127.0.0.1', 9000)
+	logging.info('server started at http://127.0.0.1:9000')
 	return server
 
 loop = asyncio.get_event_loop()
